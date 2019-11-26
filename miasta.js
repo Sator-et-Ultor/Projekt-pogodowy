@@ -15,6 +15,8 @@ function findTown(){
         document.querySelector('#tem3').innerHTML = Math.round((data.main.temp - 273)) + '&deg';
         document.querySelector('#cloud3').innerHTML= data.weather[0].description
         document.querySelector("#icon3").innerHTML = '<img src="http://openweathermap.org/img/wn/'+data.weather[0].icon+'@2x.png">';
+
+      
         //console.log(data);
     })
     .catch(function(){
@@ -40,6 +42,7 @@ function findTown(){
         document.querySelector('#cloud3').innerHTML= data.weather[0].description
         document.querySelector("#icon3").innerHTML = '<img src="http://openweathermap.org/img/wn/'+data.weather[0].icon+'@2x.png">';
         //console.log(data);
+        longForecast(data.id);
     })
     .catch(function(){
         //catch anny errors
