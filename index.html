@@ -6,13 +6,14 @@
         
         <!-- Bootstrap -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/style.css">
         <!-- Nagłowek strony -->
         <title>Weather Project</title>
     </head>
     <body>
-        <div class="container p-0 bg-light">
+        <div class="container-fluid  bg-light">
             <!-- Navbar -->
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark fadeInRight">
                 <a class="navbar-brand text-primary">Weather App</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -21,21 +22,20 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Pogoda</a>
+                            <a class="nav-link" href="#">Weather</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#slides">Ciekawostki</a>
+                            <a class="nav-link" href="#slides">Informations</a>
                         </li>
 
                         <!-- Rozwijany pasek -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Linki
-                            </a>
+                            Links                            </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="https://openweathermap.org/api" target="blank">Wykorzystane API</a>
+                            <a class="dropdown-item" href="https://openweathermap.org/api" target="blank">Api used</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="https://github.com/ElithabetZ/Weather-project" target="blank">Repozytorium na GitHub</a>
+                            <a class="dropdown-item" href="https://github.com/ElithabetZ/Weather-project" target="blank">GitHub Repo</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="https://getbootstrap.com/" target="blank">Bootstrap</a>
                         </div>
@@ -44,8 +44,8 @@
 
                     <!-- Tu można szukać pogody dla miasta lub regionu -->
                     <form class="form-inline my-2 my-lg-0">
-                        <input id="town1" class="form-control mr-sm-2" type="search" placeholder="Znajdź miasto" aria-label="Search">
-                        <button class="btn btn-outline-primary my-2 my-sm-0" type="button" onclick="findTown()">Szukaj</button>
+                        <input id="town1" class="form-control mr-sm-2" type="search" placeholder="Find a city" aria-label="Search">
+                        <button class="btn btn-outline-primary my-2 my-sm-0" type="button" onclick="findTown()">Search</button>
                     </form>
                 </div>
             </nav>  
@@ -53,8 +53,8 @@
             <!-- Miejsce na dane z serwera-->
             <div class="m-5">
                 <form class="form-inline my-2 my-lg-0">
-                    <input id="town2" class="form-control mr-sm-2" type="search" placeholder="Znajdź miasto" aria-label="Search">
-                    <button class="btn btn-outline-primary my-2 my-sm-0" type="button" onclick="findTown2()">Szukaj</button>
+                    <input id="town2" class="form-control mr-sm-2" type="search" placeholder="Find a city" aria-label="Search">
+                    <button class="btn btn-outline-primary my-2 my-sm-0" type="button" onclick="findTown2()">Search</button>
                 </form>
             </div>
 
