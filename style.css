@@ -21,3 +21,16 @@
 #hidden {
     display : none;
 }
+.custom-class{
+    border: darkgray solid 10px;
+    text-align: center;
+    font-family: "Droid Serif";
+    font-size: large;
+    background-color: white;
+}
+.custom-class2 {
+    background-color: #688590;
+}
+.col-4{
+    display: inline-block;
+}
