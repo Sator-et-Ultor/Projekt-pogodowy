@@ -3,8 +3,9 @@ function longForecast(cityId){
     fetch(`http://api.openweathermap.org/data/2.5/forecast?id=${cityId}&units=metric&appid=1e82470e3c4cd294920473dfb28d4a3d`)
         .then((resp) => resp.json())
         .then((data) => {
+            let usedDates = [];
             return data.list.filter(item => isItemAtNeededTime(item))
-                .map((item) => generateForecastItem(item));
+                .map((item) => generateForecastItem(item, usedDates));
         })
         .then((divs) => {
             divs.forEach((item) =>
@@ -12,9 +13,10 @@ function longForecast(cityId){
         });
 }
 
-function generateForecastItem(item) {
+function generateForecastItem(item, usedDates) {
     return generateDivWithSubElements([
-        generateDivWithText(formatDate(item),1),
+        generateDivWithText(formatDate(item, usedDates),1),
+        generateDivWithText(formatTime(item)),
         createImage(getIconUrl(item.weather[0].icon)),
         generateDivWithText(getOverallWeatherDescription(item),2),
         generateDivWithText(getTemperature(item),3),
@@ -22,7 +24,7 @@ function generateForecastItem(item) {
 }
 
 function getIconUrl(iconName) {
-    return `http://openweathermap.org/img/wn/${iconName}@2x.png`;
+    return `http://openweathermap.org/img/wn/${iconName}.png`;
 }
 
 function createImage(imageLink) {
@@ -46,10 +48,8 @@ function generateDivWithText(content, counter) {
     element.innerHTML = `<h3>Day : </h3>`+ content;
     if(counter===2)
         element.innerHTML = `<h3>Clouds : </h3>`+ content;
-    if(counter===3)
-        element.innerHTML = `<h3>Hour 8 : </h3>`+ content + '°C';
-    if(counter===4)
-        element.innerHTML = `<h3>Hour 16 : </h3>`+ content + '°C';
+    else 
+        element.innerHTML = content;
     element.className = 'custom-class';
     return element;
 }
@@ -63,17 +63,41 @@ function parseTime(dt_txt) {
     return dt_txt.split(" ")[1];
 }
 
-function formatDate(item) {
+function formatTime(item) {
+    let time = parseTime(item.dt_txt);
+    if (time === '00:00:00') {
+        return 'Night';
+    }
+    if (time === '06:00:00') {
+        return 'Morning';
+    }
+    if (time === '12:00:00') {
+        return 'Day';
+    }
+    if (time === '18:00:00') {
+        return 'Evening';
+    }
+}
+
+function formatDate(item, usedDates) {
     let timestamp = new Date (item.dt * 1000);
-    return timestamp.toString().slice(0, 10);
+    const date = timestamp.toString().slice(0, 10);
+    if (usedDates.includes(date)){
+        return '';
+    } else {
+        usedDates.push(date);
+        return date;
+    }
 }
 
 function getTemperature(item) {
-    return item.main.temp;
+    const temperature = Math.round(item.main.temp);
+    const sign = temperature > 0 ? '+' : '';
+    return `${sign}${temperature}`;
 }
 
-function getWindSpeed(item){
-    return item.wind.speed;
+function getWindSpeed(item) {
+    return Math.round(item.wind.speed * 3.6);
 }
 
 function getOverallWeatherDescription(item){
