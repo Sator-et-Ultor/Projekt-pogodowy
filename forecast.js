@@ -5,7 +5,7 @@ function longForecast(cityId){
         .then((data) => {
             let usedDates = [];
             return data.list.filter(item => isItemAtNeededTime(item))
-                .map((item) => generateForecastItem(item, usedDates));
+                .map((item) =>  generateForecastItem(item, usedDates));
         })
         .then((divs) => {
             divs.forEach((item) =>
@@ -15,12 +15,23 @@ function longForecast(cityId){
 
 function generateForecastItem(item, usedDates) {
     return generateDivWithSubElements([
-        generateDivWithText(formatDate(item, usedDates),1),
+         generateDateCaption(item, usedDates),
         generateDivWithText(formatTime(item)),
         createImage(getIconUrl(item.weather[0].icon)),
-        generateDivWithText(getOverallWeatherDescription(item),2),
-        generateDivWithText(getTemperature(item),3),
-        generateDivWithText(getWindSpeed(item),4)]);
+        generateDivWithText(getOverallWeatherDescription(item)),
+        generateDivWithText(getTemperature(item)),
+        generateDivWithText(getWindSpeed(item))]);
+}
+
+function generateDateCaption(item, usedDates) {
+    const dateCaption = formatDate(item, usedDates);
+    if (dateCaption) {
+        const el = generateDivWithText(dateCaption);
+        el.className += ' date-above-all';
+        return el;
+    } else {
+        return generateDivWithText('&nbsp;');
+    }
 }
 
 function getIconUrl(iconName) {
@@ -29,34 +40,35 @@ function getIconUrl(iconName) {
 
 function createImage(imageLink) {
     let img = document.createElement("img");
-
     img.src = imageLink;
     return img;
 }
 
 function generateDivWithSubElements(divs) {
     let element = document.createElement("div");
-    element.className = 'custom-class2';
+    element.className = 'custom-class2 col-1';
     divs.forEach((item) =>
         element.appendChild(item));
     return element;
 }
 
-function generateDivWithText(content, counter) {
-    let element = document.createElement("div");
-    if(counter===1)
-    element.innerHTML = `<h3>Day : </h3>`+ content;
-    if(counter===2)
-        element.innerHTML = `<h3>Clouds : </h3>`+ content;
-    else 
-        element.innerHTML = content;
+function generateDivWithText(content) {
+    let element = document.createElement("div"); 
+    element.innerHTML = content;
     element.className = 'custom-class';
     return element;
 }
 
 function isItemAtNeededTime(item) {
     let time = parseTime(item.dt_txt);
-    return time === '00:00:00' || time === '06:00:00' || time === '12:00:00' || time === '18:00:00';
+    let date = new Date(item.dt * 1000);
+    date.setHours(0,0,0,0);
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    const diffTime = Math.abs(date - today);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return date.getDay() !== today.getDay() && diffDays < 4 && (time === '00:00:00' || time === '06:00:00' || time === '12:00:00' || time === '18:00:00');
+
 }
 
 function parseTime(dt_txt) {
@@ -80,14 +92,19 @@ function formatTime(item) {
 }
 
 function formatDate(item, usedDates) {
-    let timestamp = new Date (item.dt * 1000);
-    const date = timestamp.toString().slice(0, 10);
+    const date = getDate(item);
     if (usedDates.includes(date)){
-        return '';
+        return null;
     } else {
         usedDates.push(date);
         return date;
     }
+}
+
+function getDate(item) {
+    let timestamp = new Date(item.dt * 1000);
+    const date = timestamp.toString().slice(0, 10);
+    return date;
 }
 
 function getTemperature(item) {

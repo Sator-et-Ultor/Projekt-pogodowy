@@ -21,6 +21,12 @@
 #hidden {
     display : none;
 }
+.date-above-all {
+    z-index: 100;
+    width: 150px;
+    position: relative;
+    text-align: left;
+}
 .custom-class{
     border: darkgray solid 10px;
     text-align: center;
