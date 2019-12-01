@@ -1,6 +1,6 @@
 function longForecast(cityId){
 
-    fetch(`http://api.openweathermap.org/data/2.5/forecast?id=${cityId}&units=metric&appid=1e82470e3c4cd294920473dfb28d4a3d`)
+    fetch(`https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/forecast?id=${cityId}&units=metric&appid=1e82470e3c4cd294920473dfb28d4a3d`)
         .then((resp) => resp.json())
         .then((data) => {
             return data.list.filter(item => isItemAtNeededTime(item))
@@ -22,7 +22,7 @@ function generateForecastItem(item) {
 }
 
 function getIconUrl(iconName) {
-    return `http://openweathermap.org/img/wn/${iconName}@2x.png`;
+    return `https://cors-anywhere.herokuapp.com/http://openweathermap.org/img/wn/${iconName}@2x.png`;
 }
 
 function createImage(imageLink) {
