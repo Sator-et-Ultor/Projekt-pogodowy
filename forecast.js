@@ -1,5 +1,10 @@
 function longForecast(cityId){
 
+    const leng = document.getElementById('forecasts');
+    while(leng.firstChild){
+        leng.removeChild(leng.firstChild);
+    }
+
     fetch(`http://api.openweathermap.org/data/2.5/forecast?id=${cityId}&units=metric&appid=1e82470e3c4cd294920473dfb28d4a3d`)
         .then((resp) => resp.json())
         .then((data) => {

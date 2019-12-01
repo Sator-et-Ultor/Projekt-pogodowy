@@ -66,6 +66,11 @@ function sunset(dsunset){
 
 function createIframe(lon,lat) {
     var tmpElem = document.createElement('div');
+    var check = document.getElementById('map');
+    while (check.firstChild) {
+        check.removeChild(check.firstChild);
+    }
+
     tmpElem.innerHTML = '<iframe src="https://openweathermap.org/weathermap?basemap=map&cities=false&layer=temperature&lat='+lat+'&lon='+lon+'&zoom=10" class="mapka"  align="center">';
     var iframe = tmpElem.firstChild;
     document.getElementById("map").appendChild(iframe);
