@@ -5,7 +5,7 @@ function longForecast(cityId){
         leng.removeChild(leng.firstChild);
     }
 
-    fetch(`http://api.openweathermap.org/data/2.5/forecast?id=${cityId}&units=metric&appid=1e82470e3c4cd294920473dfb28d4a3d`)
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?id=${cityId}&units=metric&appid=1e82470e3c4cd294920473dfb28d4a3d`)
         .then((resp) => resp.json())
         .then((data) => {
             let usedDates = [];
@@ -40,7 +40,7 @@ function generateDateCaption(item, usedDates) {
 }
 
 function getIconUrl(iconName) {
-    return `http://openweathermap.org/img/wn/${iconName}.png`;
+    return `https://openweathermap.org/img/wn/${iconName}.png`;
 }
 
 function createImage(imageLink) {

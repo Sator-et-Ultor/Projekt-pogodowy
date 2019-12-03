@@ -3,14 +3,14 @@ function findTown(){
     document.getElementById("hidden").style.display = "inline";
     var town = document.getElementById('town1').value;
 
-    fetch ('http://api.openweathermap.org/data/2.5/weather?q='+town+'&appid=1e82470e3c4cd294920473dfb28d4a3d&units=metric')
+    fetch ('https://api.openweathermap.org/data/2.5/weather?q='+town+'&appid=1e82470e3c4cd294920473dfb28d4a3d&units=metric')
         .then(function(resp){return resp.json()})
         .then(function(data){
 
             document.querySelector('#City').textContent = data.name;
             document.querySelector('#tem').innerHTML = Math.round(data.main.temp) + '&deg';
             document.querySelector('#cloud').innerHTML= data.weather[0].description
-            document.querySelector("#icon").innerHTML = '<img src="http://openweathermap.org/img/wn/'+data.weather[0].icon+'@2x.png">';
+            document.querySelector("#icon").innerHTML = '<img src="https://openweathermap.org/img/wn/'+data.weather[0].icon+'@2x.png">';
             //Current data
             CurrentData(data.dt)
             //Time of sunrise
@@ -29,7 +29,7 @@ function findTown2(){
 
     var town2 = document.getElementById('town2').value;
     var tabelaTest = document.getElementById('forecast');
-    fetch ('http://api.openweathermap.org/data/2.5/weather?q='+town2+'&appid=1e82470e3c4cd294920473dfb28d4a3d&units=metric')
+    fetch ('https://api.openweathermap.org/data/2.5/weather?q='+town2+'&appid=1e82470e3c4cd294920473dfb28d4a3d&units=metric')
         .then(function(resp){return resp.json()})
         .then(function(data){
             longForecast(data.id);
